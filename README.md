@@ -9,6 +9,9 @@ A library to control waveshare 1.54 inch e-paper display.
 # Usage
 See [examples](./examples).
 
+# License
+MIT
+
 # References
 - [1.54inch e-Paper Module](https://www.waveshare.com/wiki/1.54inch_e-Paper_Module)
 - [1.54inch e-Paper Module (B)](https://www.waveshare.com/wiki/1.54inch_e-Paper_Module_(B))
