@@ -1,6 +1,6 @@
 /**
- *  @filename   :   EPD1in54B.h
- *  @brief      :   Header file for e-paper display library EPD1in54B.cpp
+ *  @filename   :   EPD1in54C.h
+ *  @brief      :   Header file for e-paper display library EPD1in54C.cpp
  *  @author     :   Yehui from Waveshare
  *
  *  Copyright (C) Waveshare     August 10 2017
@@ -24,8 +24,8 @@
  * THE SOFTWARE.
  */
 
-#ifndef EPD1IN54B_H
-#define EPD1IN54B_H
+#ifndef EPD1IN54C_H
+#define EPD1IN54C_H
 
 #include "EPDIF.h"
 
@@ -36,10 +36,10 @@
 #define BUSY_PIN        7
 
 // Display resolution
-#define EPD_WIDTH       200
-#define EPD_HEIGHT      200
+#define EPD_WIDTH       152
+#define EPD_HEIGHT      152
 
-// EPD1IN54B commands
+// EPD1IN54C commands
 #define PANEL_SETTING                               0x00
 #define POWER_SETTING                               0x01
 #define POWER_OFF                                   0x02
@@ -70,13 +70,13 @@
 #define ACTIVE_PROGRAM                              0xA1
 #define READ_OTP_DATA                               0xA2
 
-class EPD1in54B : EPDIF {
+class EPD1in54C : EPDIF {
  public:
   unsigned long width;
   unsigned long height;
 
-  EPD1in54B(unsigned int reset = RESET_PIN, unsigned int dc = DC_PIN, unsigned int cs = CS_PIN, unsigned int busy = BUSY_PIN);
-  ~EPD1in54B();
+  EPD1in54C(unsigned int reset = RESET_PIN, unsigned int dc = DC_PIN, unsigned int cs = CS_PIN, unsigned int busy = BUSY_PIN);
+  ~EPD1in54C();
   int  Init(void);
   void SendCommand(unsigned char command);
   void SendData(unsigned char data);
@@ -88,6 +88,6 @@ class EPD1in54B : EPDIF {
   void Sleep(void);
 };
 
-#endif /* EPD1IN54B_H */
+#endif /* EPD1IN54C_H */
 
 /* END OF FILE */
