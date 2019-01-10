@@ -29,6 +29,12 @@
 
 #include "EPDIF.h"
 
+// Default pin assign
+#define RESET_PIN       8
+#define DC_PIN          9
+#define CS_PIN          10
+#define BUSY_PIN        7
+
 // Display resolution
 #define EPD_WIDTH       200
 #define EPD_HEIGHT      200
@@ -64,7 +70,7 @@ public:
     unsigned long width;
     unsigned long height;
 
-    EPD1in54();
+    EPD1in54(unsigned int reset = RESET_PIN, unsigned int dc = DC_PIN, unsigned int cs = CS_PIN, unsigned int busy = BUSY_PIN);
     ~EPD1in54();
     int  Init(const unsigned char* lut);
     void SendCommand(unsigned char command);
@@ -84,10 +90,6 @@ public:
     void Sleep(void);
 
 private:
-    unsigned int reset_pin;
-    unsigned int dc_pin;
-    unsigned int cs_pin;
-    unsigned int busy_pin;
     const unsigned char* lut;
 
     void SetLut(const unsigned char* lut);

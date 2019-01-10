@@ -30,29 +30,22 @@
 
 #include <Arduino.h>
 
-// Pin definition
-#if defined(__AVR__)
-#define RST_PIN         8
-#define DC_PIN          9
-#define CS_PIN          10
-#define BUSY_PIN        7
-#elif defined(ESP32)
-#define RST_PIN         33  // 8
-#define DC_PIN          25  // 9
-#define CS_PIN          26  // 10
-#define BUSY_PIN        27  // 7
-#endif
-
 class EPDIF {
 public:
-    EPDIF(void);
+    EPDIF(unsigned int reset, unsigned int dc, unsigned int cs, unsigned int busy);
     ~EPDIF(void);
 
-    static int  IfInit(void);
+    int  IfInit();
     static void DigitalWrite(int pin, int value);
     static int  DigitalRead(int pin);
     static void DelayMs(unsigned int delaytime);
-    static void SpiTransfer(unsigned char data);
+    void SpiTransfer(unsigned char data);
+
+protected:
+    unsigned int reset_pin;
+    unsigned int dc_pin;
+    unsigned int cs_pin;
+    unsigned int busy_pin;
 };
 
 #endif

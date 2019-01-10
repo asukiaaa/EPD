@@ -30,11 +30,8 @@
 EPD1in54::~EPD1in54() {
 };
 
-EPD1in54::EPD1in54() {
-    reset_pin = RST_PIN;
-    dc_pin = DC_PIN;
-    cs_pin = CS_PIN;
-    busy_pin = BUSY_PIN;
+EPD1in54::EPD1in54(unsigned int reset, unsigned int dc, unsigned int cs, unsigned int busy)
+  : EPDIF(reset, dc, cs, busy) {
     width = EPD_WIDTH;
     height = EPD_HEIGHT;
 };

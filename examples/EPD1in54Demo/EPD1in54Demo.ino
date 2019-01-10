@@ -40,7 +40,8 @@
   */
 unsigned char image[1024];
 EPDPaint paint(image, 0, 0);    // width should be the multiple of 8
-EPD1in54 epd;
+EPD1in54 epd; // default reset: 8, dc: 9, cs: 10, busy: 7
+// EPD1in54 epd(33, 25, 26, 27); // reset, dc, cs, busy
 unsigned long time_start_ms;
 unsigned long time_now_s;
 

@@ -28,7 +28,11 @@
 #include "EPDIF.h"
 #include <SPI.h>
 
-EPDIF::EPDIF() {
+EPDIF::EPDIF(unsigned int reset, unsigned int dc, unsigned int cs, unsigned int busy) {
+    reset_pin = reset;
+    dc_pin = dc;
+    cs_pin = cs;
+    busy_pin = busy;
 };
 
 EPDIF::~EPDIF() {
@@ -47,16 +51,16 @@ void EPDIF::DelayMs(unsigned int delaytime) {
 }
 
 void EPDIF::SpiTransfer(unsigned char data) {
-    digitalWrite(CS_PIN, LOW);
+    digitalWrite(cs_pin, LOW);
     SPI.transfer(data);
-    digitalWrite(CS_PIN, HIGH);
+    digitalWrite(cs_pin, HIGH);
 }
 
-int EPDIF::IfInit(void) {
-    pinMode(CS_PIN, OUTPUT);
-    pinMode(RST_PIN, OUTPUT);
-    pinMode(DC_PIN, OUTPUT);
-    pinMode(BUSY_PIN, INPUT);
+int EPDIF::IfInit() {
+    pinMode(cs_pin, OUTPUT);
+    pinMode(reset_pin, OUTPUT);
+    pinMode(dc_pin, OUTPUT);
+    pinMode(busy_pin, INPUT);
     SPI.beginTransaction(SPISettings(2000000, MSBFIRST, SPI_MODE0));
     SPI.begin();
     return 0;
