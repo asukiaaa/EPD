@@ -28,13 +28,20 @@
 #ifndef EPDIF_H
 #define EPDIF_H
 
-#include <arduino.h>
+#include <Arduino.h>
 
 // Pin definition
+#if defined(__AVR__)
 #define RST_PIN         8
 #define DC_PIN          9
 #define CS_PIN          10
 #define BUSY_PIN        7
+#elif defined(ESP32)
+#define RST_PIN         33  // 8
+#define DC_PIN          25  // 9
+#define CS_PIN          26  // 10
+#define BUSY_PIN        27  // 7
+#endif
 
 class EpdIf {
 public:

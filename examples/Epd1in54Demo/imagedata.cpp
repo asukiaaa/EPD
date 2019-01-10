@@ -24,7 +24,11 @@
  */
 
 #include "imagedata.h"
+#if defined(__AVR__)
 #include <avr/pgmspace.h>
+#elif defined(ESP8266) || defined(ESP32)
+#include <pgmspace.h>
+#endif
 
 const unsigned char IMAGE_DATA[] PROGMEM = {
 /* 0X00,0X01,0XC8,0X00,0XC8,0X00, */
