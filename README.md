@@ -1,4 +1,4 @@
-# epd
+# EPD
 A library to control waveshare 1.54 inch e-paper display.
 
 # Targets
