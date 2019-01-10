@@ -50,8 +50,8 @@ void setup() {
   Serial.begin(115200);
 
   if (epd.Init(lut_full_update) != 0) {
-      Serial.print("e-Paper init failed");
-      return;
+    Serial.print("e-Paper init failed");
+    return;
   }
 
   /**
@@ -103,8 +103,8 @@ void setup() {
   delay(2000);
 
   if (epd.Init(lut_partial_update) != 0) {
-      Serial.print("e-Paper init failed");
-      return;
+    Serial.print("e-Paper init failed");
+    return;
   }
 
   /**

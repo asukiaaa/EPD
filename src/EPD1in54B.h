@@ -80,21 +80,21 @@ extern const unsigned char lut_red0[];
 extern const unsigned char lut_red1[];
 
 class EPD1in54B : EPDIF {
-public:
-    unsigned long width;
-    unsigned long height;
+ public:
+  unsigned long width;
+  unsigned long height;
 
-    EPD1in54B(unsigned int reset = RESET_PIN, unsigned int dc = DC_PIN, unsigned int cs = CS_PIN, unsigned int busy = BUSY_PIN);
-    ~EPD1in54B();
-    int  Init(void);
-    void SendCommand(unsigned char command);
-    void SendData(unsigned char data);
-    void WaitUntilIdle(void);
-    void Reset(void);
-    void SetLutBw(void);
-    void SetLutRed(void);
-    void DisplayFrame(const unsigned char* frame_buffer_black, const unsigned char* frame_buffer_red);
-    void Sleep(void);
+  EPD1in54B(unsigned int reset = RESET_PIN, unsigned int dc = DC_PIN, unsigned int cs = CS_PIN, unsigned int busy = BUSY_PIN);
+  ~EPD1in54B();
+  int  Init(void);
+  void SendCommand(unsigned char command);
+  void SendData(unsigned char data);
+  void WaitUntilIdle(void);
+  void Reset(void);
+  void SetLutBw(void);
+  void SetLutRed(void);
+  void DisplayFrame(const unsigned char* frame_buffer_black, const unsigned char* frame_buffer_red);
+  void Sleep(void);
 };
 
 #endif /* EPD1IN54B_H */

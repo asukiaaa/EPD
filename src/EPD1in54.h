@@ -66,35 +66,35 @@ extern const unsigned char lut_full_update[];
 extern const unsigned char lut_partial_update[];
 
 class EPD1in54 : EPDIF {
-public:
-    unsigned long width;
-    unsigned long height;
+ public:
+  unsigned long width;
+  unsigned long height;
 
-    EPD1in54(unsigned int reset = RESET_PIN, unsigned int dc = DC_PIN, unsigned int cs = CS_PIN, unsigned int busy = BUSY_PIN);
-    ~EPD1in54();
-    int  Init(const unsigned char* lut);
-    void SendCommand(unsigned char command);
-    void SendData(unsigned char data);
-    void WaitUntilIdle(void);
-    void Reset(void);
-    void SetFrameMemory(
-        const unsigned char* image_buffer,
-        int x,
-        int y,
-        int image_width,
-        int image_height
-    );
-    void SetFrameMemory(const unsigned char* image_buffer);
-    void ClearFrameMemory(unsigned char color);
-    void DisplayFrame(void);
-    void Sleep(void);
+  EPD1in54(unsigned int reset = RESET_PIN, unsigned int dc = DC_PIN, unsigned int cs = CS_PIN, unsigned int busy = BUSY_PIN);
+  ~EPD1in54();
+  int  Init(const unsigned char* lut);
+  void SendCommand(unsigned char command);
+  void SendData(unsigned char data);
+  void WaitUntilIdle(void);
+  void Reset(void);
+  void SetFrameMemory(
+                      const unsigned char* image_buffer,
+                      int x,
+                      int y,
+                      int image_width,
+                      int image_height
+                      );
+  void SetFrameMemory(const unsigned char* image_buffer);
+  void ClearFrameMemory(unsigned char color);
+  void DisplayFrame(void);
+  void Sleep(void);
 
-private:
-    const unsigned char* lut;
+ private:
+  const unsigned char* lut;
 
-    void SetLut(const unsigned char* lut);
-    void SetMemoryArea(int x_start, int y_start, int x_end, int y_end);
-    void SetMemoryPointer(int x, int y);
+  void SetLut(const unsigned char* lut);
+  void SetMemoryArea(int x_start, int y_start, int x_end, int y_end);
+  void SetMemoryPointer(int x, int y);
 };
 
 #endif /* EPD1IN54_H */
