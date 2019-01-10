@@ -1,6 +1,6 @@
 /**
- *  @filename   :   epd1in54.h
- *  @brief      :   Header file for e-paper display library epd1in54.cpp
+ *  @filename   :   EPD1in54.h
+ *  @brief      :   Header file for e-paper display library EPD1in54.cpp
  *  @author     :   Yehui from Waveshare
  *
  *  Copyright (C) Waveshare     September 5 2017
@@ -27,7 +27,7 @@
 #ifndef EPD1IN54_H
 #define EPD1IN54_H
 
-#include "epdif.h"
+#include "EPDIF.h"
 
 // Display resolution
 #define EPD_WIDTH       200
@@ -59,13 +59,13 @@
 extern const unsigned char lut_full_update[];
 extern const unsigned char lut_partial_update[];
 
-class Epd : EpdIf {
+class EPD1in54 : EPDIF {
 public:
     unsigned long width;
     unsigned long height;
 
-    Epd();
-    ~Epd();
+    EPD1in54();
+    ~EPD1in54();
     int  Init(const unsigned char* lut);
     void SendCommand(unsigned char command);
     void SendData(unsigned char data);

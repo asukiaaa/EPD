@@ -1,6 +1,6 @@
 /**
- *  @filename   :   epdpaint.h
- *  @brief      :   Header file for epdpaint.cpp
+ *  @filename   :   EPDPaint.h
+ *  @brief      :   Header file for EPDPaint.cpp
  *  @author     :   Yehui from Waveshare
  *
  *  Copyright (C) Waveshare     July 28 2017
@@ -38,10 +38,10 @@
 
 #include "fonts.h"
 
-class Paint {
+class EPDPaint {
 public:
-    Paint(unsigned char* image, int width, int height);
-    ~Paint();
+    EPDPaint(unsigned char* image, int width, int height);
+    ~EPDPaint();
     void Clear(int colored);
     int  GetWidth(void);
     void SetWidth(int width);

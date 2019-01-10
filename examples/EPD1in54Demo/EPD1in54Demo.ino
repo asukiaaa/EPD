@@ -25,8 +25,8 @@
  */
 
 #include <SPI.h>
-#include <epd1in54.h>
-#include <epdpaint.h>
+#include <EPD1in54.h>
+#include <EPDPaint.h>
 #include "imagedata.h"
 
 #define COLORED     0
@@ -39,8 +39,8 @@
   * 1 byte = 8 pixels, therefore you have to set 8*N pixels at a time.
   */
 unsigned char image[1024];
-Paint paint(image, 0, 0);    // width should be the multiple of 8
-Epd epd;
+EPDPaint paint(image, 0, 0);    // width should be the multiple of 8
+EPD1in54 epd;
 unsigned long time_start_ms;
 unsigned long time_now_s;
 

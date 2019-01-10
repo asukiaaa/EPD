@@ -1,7 +1,7 @@
 /**
- *  @filename   :   epdif.h
- *  @brief      :   Header file of epdif.cpp providing EPD interface functions
- *                  Users have to implement all the functions in epdif.cpp
+ *  @filename   :   EPDIF.h
+ *  @brief      :   Header file of EPDIF.cpp providing EPD interface functions
+ *                  Users have to implement all the functions in EPDIF.cpp
  *  @author     :   Yehui from Waveshare
  *
  *  Copyright (C) Waveshare     August 10 2017
@@ -43,10 +43,10 @@
 #define BUSY_PIN        27  // 7
 #endif
 
-class EpdIf {
+class EPDIF {
 public:
-    EpdIf(void);
-    ~EpdIf(void);
+    EPDIF(void);
+    ~EPDIF(void);
 
     static int  IfInit(void);
     static void DigitalWrite(int pin, int value);

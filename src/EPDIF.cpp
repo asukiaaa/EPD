@@ -1,7 +1,7 @@
 /**
- *  @filename   :   epdif.cpp
+ *  @filename   :   EPDIF.cpp
  *  @brief      :   Implements EPD interface functions
- *                  Users have to implement all the functions in epdif.cpp
+ *                  Users have to implement all the functions in EPDIF.cpp
  *  @author     :   Yehui from Waveshare
  *
  *  Copyright (C) Waveshare     August 10 2017
@@ -25,34 +25,34 @@
  * THE SOFTWARE.
  */
 
-#include "epdif.h"
+#include "EPDIF.h"
 #include <SPI.h>
 
-EpdIf::EpdIf() {
+EPDIF::EPDIF() {
 };
 
-EpdIf::~EpdIf() {
+EPDIF::~EPDIF() {
 };
 
-void EpdIf::DigitalWrite(int pin, int value) {
+void EPDIF::DigitalWrite(int pin, int value) {
     digitalWrite(pin, value);
 }
 
-int EpdIf::DigitalRead(int pin) {
+int EPDIF::DigitalRead(int pin) {
     return digitalRead(pin);
 }
 
-void EpdIf::DelayMs(unsigned int delaytime) {
+void EPDIF::DelayMs(unsigned int delaytime) {
     delay(delaytime);
 }
 
-void EpdIf::SpiTransfer(unsigned char data) {
+void EPDIF::SpiTransfer(unsigned char data) {
     digitalWrite(CS_PIN, LOW);
     SPI.transfer(data);
     digitalWrite(CS_PIN, HIGH);
 }
 
-int EpdIf::IfInit(void) {
+int EPDIF::IfInit(void) {
     pinMode(CS_PIN, OUTPUT);
     pinMode(RST_PIN, OUTPUT);
     pinMode(DC_PIN, OUTPUT);
