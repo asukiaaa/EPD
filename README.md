@@ -41,6 +41,7 @@ See [examples](./examples).
 MIT
 
 # References
+- [電子ペーパーの実験](https://garretlab.web.fc2.com/arduino/esp32/lab/epd/index.html)
 - [1.54inch e-Paper Module](https://www.waveshare.com/wiki/1.54inch_e-Paper_Module)
 - [1.54inch e-Paper Module (B)](https://www.waveshare.com/wiki/1.54inch_e-Paper_Module_(B))
 - [1.54inch e-Paper Module (C)](https://www.waveshare.com/wiki/1.54inch_e-Paper_Module_(C))
