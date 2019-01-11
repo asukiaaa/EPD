@@ -20,8 +20,8 @@ EPD | Controller
 --- | ---
 VCC | 3V3
 GND | GND
-SIG | SPI SIG
-SCLK | SPI SCLK
+SDI | MOSI(ESP32: 23)
+SCLK | SCK(ESP32: 18)
 CS | 10
 DC | 9
 Reset | 8
