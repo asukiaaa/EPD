@@ -44,6 +44,7 @@ EPD1in54 epd; // default reset: 8, dc: 9, cs: 10, busy: 7
 // EPD1in54 epd(33, 25, 26, 27); // reset, dc, cs, busy
 unsigned long time_start_ms;
 unsigned long time_now_s;
+unsigned long time_showed_s = 0;
 
 void setup() {
   // put your setup code here, to run once:
@@ -124,11 +125,19 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   time_now_s = (millis() - time_start_ms) / 1000;
+  if (time_now_s != time_showed_s) {
+    time_showed_s = time_now_s;
+    updateTime(time_showed_s);
+  }
+  delay(20);
+}
+
+void updateTime(unsigned long seconds) {
   char time_string[] = {'0', '0', ':', '0', '0', '\0'};
-  time_string[0] = time_now_s / 60 / 10 + '0';
-  time_string[1] = time_now_s / 60 % 10 + '0';
-  time_string[3] = time_now_s % 60 / 10 + '0';
-  time_string[4] = time_now_s % 60 % 10 + '0';
+  time_string[0] = seconds / 60 / 10 + '0';
+  time_string[1] = seconds / 60 % 10 + '0';
+  time_string[3] = seconds % 60 / 10 + '0';
+  time_string[4] = seconds % 60 % 10 + '0';
 
   paint.SetWidth(32);
   paint.SetHeight(96);
@@ -138,7 +147,4 @@ void loop() {
   paint.DrawStringAt(0, 4, time_string, &Font24, COLORED);
   epd.SetFrameMemory(paint.GetImage(), 80, 72, paint.GetWidth(), paint.GetHeight());
   epd.DisplayFrame();
-
-  delay(500);
 }
-
