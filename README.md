@@ -7,6 +7,34 @@ A library to control waveshare 1.54 inch e-paper display.
 - [152x152, 1.54inch E-Ink display module, yellow/black/white three-color](https://www.waveshare.com/product/modules/oleds-lcds/e-paper/1.54inch-e-paper-module-c.htm)
 
 # Usage
+## Connection
+Default
+
+```
+EPD1in54 epd; // default reset: 8, dc: 9, cs: 10, busy: 7
+// EPD1in54B epd; // for red
+// EPD1in54C epd; // for yellow
+```
+
+EPD | Controller
+--- | ---
+VCC | 3V3
+GND | GND
+SIG | SPI SIG
+SCLK | SPI SCLK
+CS | 10
+DC | 9
+Reset | 8
+Busy | 7
+
+You can change pin assign for CS, DC, Reset and Busy like this.
+```
+EPD1in54 epd(33, 25, 26, 27); // reset, dc, cs, busy
+// EPD1in54B epd(33, 25, 26, 27); // for red
+// EPD1in54C epd(33, 25, 26, 27); // for yellow
+```
+
+## Program
 See [examples](./examples).
 
 # License
