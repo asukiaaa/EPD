@@ -84,42 +84,42 @@ EPD1in54C::EPD1in54C(unsigned int reset, unsigned int dc, unsigned int cs, unsig
   height = EPD_HEIGHT;
 };
 
-int EPD1in54C::Init(void) {
+int EPD1in54C::init(void) {
   /* this calls the peripheral hardware interface, see epdif */
-  if (IfInit() != 0) {
+  if (ifInit() != 0) {
     return -1;
   }
   /* EPD hardware init start */
-  Reset();
-  SendCommand(POWER_SETTING);
-  SendData(0x07);
-  SendData(0x00);
-  SendData(0x08);
-  SendData(0x00);
-  SendCommand(BOOSTER_SOFT_START);
-  SendData(0x17);
-  SendData(0x17);
-  SendData(0x17);
-  SendCommand(POWER_ON);
+  reset();
+  sendCommand(POWER_SETTING);
+  sendData(0x07);
+  sendData(0x00);
+  sendData(0x08);
+  sendData(0x00);
+  sendCommand(BOOSTER_SOFT_START);
+  sendData(0x17);
+  sendData(0x17);
+  sendData(0x17);
+  sendCommand(POWER_ON);
 
-  WaitUntilIdle();
+  waitUntilIdle();
 
-  SendCommand(PANEL_SETTING);
-  SendData(0x0f);
-  SendData(0x0d);
-  SendCommand(VCOM_AND_DATA_INTERVAL_SETTING);
-  SendData(0xF7);
+  sendCommand(PANEL_SETTING);
+  sendData(0x0f);
+  sendData(0x0d);
+  sendCommand(VCOM_AND_DATA_INTERVAL_SETTING);
+  sendData(0xF7);
   //    SendCommand(PLL_CONTROL);
   //    SendData(0x39);
-  SendCommand(TCON_RESOLUTION);
-  SendData(0x98);
-  SendData(0x00);
-  SendData(0x98);
-  SendCommand(VCM_DC_SETTING_REGISTER);
-  SendData(0xf7);
+  sendCommand(TCON_RESOLUTION);
+  sendData(0x98);
+  sendData(0x00);
+  sendData(0x98);
+  sendCommand(VCM_DC_SETTING_REGISTER);
+  sendData(0xf7);
 
-  SetLutBw();
-  SetLutRed();
+  setLutBw();
+  setLutRed();
   /* EPD hardware init end */
 
   return 0;
@@ -128,102 +128,102 @@ int EPD1in54C::Init(void) {
 /**
  *  @brief: basic function for sending commands
  */
-void EPD1in54C::SendCommand(unsigned char command) {
-  DigitalWrite(dc_pin, LOW);
-  SpiTransfer(command);
+void EPD1in54C::sendCommand(unsigned char command) {
+  digitalWrite(dc_pin, LOW);
+  spiTransfer(command);
 }
 
 /**
  *  @brief: basic function for sending data
  */
-void EPD1in54C::SendData(unsigned char data) {
-  DigitalWrite(dc_pin, HIGH);
-  SpiTransfer(data);
+void EPD1in54C::sendData(unsigned char data) {
+  digitalWrite(dc_pin, HIGH);
+  spiTransfer(data);
 }
 
 /**
  *  @brief: Wait until the busy_pin goes HIGH
  */
-void EPD1in54C::WaitUntilIdle(void) {
-  while(DigitalRead(busy_pin) == 0) {      //0: busy, 1: idle
-    DelayMs(100);
+void EPD1in54C::waitUntilIdle(void) {
+  while(digitalRead(busy_pin) == 0) {      //0: busy, 1: idle
+    delayMs(100);
   }
 }
 
 /**
  *  @brief: module reset.
  *          often used to awaken the module in deep sleep,
- *          see EPD1in54C::Sleep();
+ *          see EPD1in54C::sleep();
  */
-void EPD1in54C::Reset(void) {
-  DigitalWrite(reset_pin, LOW);                //module reset
-  DelayMs(200);
-  DigitalWrite(reset_pin, HIGH);
-  DelayMs(200);
+void EPD1in54C::reset(void) {
+  digitalWrite(reset_pin, LOW);                //module reset
+  delayMs(200);
+  digitalWrite(reset_pin, HIGH);
+  delayMs(200);
 }
 
 /**
  *  @brief: set the look-up tables
  */
-void EPD1in54C::SetLutBw(void) {
+void EPD1in54C::setLutBw(void) {
   unsigned int count;
-  SendCommand(0x20);         //g vcom
+  sendCommand(0x20);         //g vcom
   for(count = 0; count < 15; count++) {
-    SendData(lut_vcom0[count]);
+    sendData(lut_vcom0[count]);
   }
-  SendCommand(0x21);        //g ww --
+  sendCommand(0x21);        //g ww --
   for(count = 0; count < 15; count++) {
-    SendData(lut_w[count]);
+    sendData(lut_w[count]);
   }
-  SendCommand(0x22);         //g bw r
+  sendCommand(0x22);         //g bw r
   for(count = 0; count < 15; count++) {
-    SendData(lut_b[count]);
+    sendData(lut_b[count]);
   }
-  SendCommand(0x23);         //g wb w
+  sendCommand(0x23);         //g wb w
   for(count = 0; count < 15; count++) {
-    SendData(lut_g1[count]);
+    sendData(lut_g1[count]);
   }
-  SendCommand(0x24);         //g bb b
+  sendCommand(0x24);         //g bb b
   for(count = 0; count < 15; count++) {
-    SendData(lut_g2[count]);
+    sendData(lut_g2[count]);
   }
 }
 
-void EPD1in54C::SetLutRed(void) {
+void EPD1in54C::setLutRed(void) {
   unsigned int count;
-  SendCommand(0x25);
+  sendCommand(0x25);
   for(count = 0; count < 15; count++) {
-    SendData(lut_vcom1[count]);
+    sendData(lut_vcom1[count]);
   }
-  SendCommand(0x26);
+  sendCommand(0x26);
   for(count = 0; count < 15; count++) {
-    SendData(lut_red0[count]);
+    sendData(lut_red0[count]);
   }
-  SendCommand(0x27);
+  sendCommand(0x27);
   for(count = 0; count < 15; count++) {
-    SendData(lut_red1[count]);
+    sendData(lut_red1[count]);
   }
 }
 
-void EPD1in54C::DisplayFrame(const unsigned char* frame_buffer_black, const unsigned char* frame_buffer_red) {
+void EPD1in54C::displayFrame(const unsigned char* frame_buffer_black, const unsigned char* frame_buffer_red) {
   if (frame_buffer_black != NULL) {
-    SendCommand(DATA_START_TRANSMISSION_1);
-    DelayMs(2);
+    sendCommand(DATA_START_TRANSMISSION_1);
+    delayMs(2);
     for (int i = 0; i < this->width * this->height / 8; i++) {
-      SendData(pgm_read_byte(&frame_buffer_black[i]));
+      sendData(pgm_read_byte(&frame_buffer_black[i]));
     }
-    DelayMs(2);
+    delayMs(2);
   }
   if (frame_buffer_red != NULL) {
-    SendCommand(DATA_START_TRANSMISSION_2);
-    DelayMs(2);
+    sendCommand(DATA_START_TRANSMISSION_2);
+    delayMs(2);
     for (int i = 0; i < this->width * this->height / 8; i++) {
-      SendData(pgm_read_byte(&frame_buffer_red[i]));
+      sendData(pgm_read_byte(&frame_buffer_red[i]));
     }
-    DelayMs(2);
+    delayMs(2);
   }
-  SendCommand(DISPLAY_REFRESH);
-  WaitUntilIdle();
+  sendCommand(DISPLAY_REFRESH);
+  waitUntilIdle();
 }
 
 /**
@@ -232,20 +232,20 @@ void EPD1in54C::DisplayFrame(const unsigned char* frame_buffer_black, const unsi
  *          The deep sleep mode would return to standby by hardware reset.
  *          The only one parameter is a check code, the command would be
  *          executed if check code = 0xA5.
- *          You can use EPD1in54C::Init() to awaken
+ *          You can use EPD1in54C::init() to awaken
  */
-void EPD1in54C::Sleep() {
-  SendCommand(VCOM_AND_DATA_INTERVAL_SETTING);
-  SendData(0x17);
-  SendCommand(VCM_DC_SETTING_REGISTER);         //to solve Vcom drop
-  SendData(0x00);
-  SendCommand(POWER_SETTING);         //power setting
-  SendData(0x02);        //gate switch to external
-  SendData(0x00);
-  SendData(0x00);
-  SendData(0x00);
-  WaitUntilIdle();
-  SendCommand(POWER_OFF);         //power off
+void EPD1in54C::sleep() {
+  sendCommand(VCOM_AND_DATA_INTERVAL_SETTING);
+  sendData(0x17);
+  sendCommand(VCM_DC_SETTING_REGISTER);         //to solve Vcom drop
+  sendData(0x00);
+  sendCommand(POWER_SETTING);         //power setting
+  sendData(0x02);        //gate switch to external
+  sendData(0x00);
+  sendData(0x00);
+  sendData(0x00);
+  waitUntilIdle();
+  sendCommand(POWER_OFF);         //power off
 }
 
 /* END OF FILE */

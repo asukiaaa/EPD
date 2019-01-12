@@ -50,7 +50,7 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
 
-  if (epd.Init(lut_full_update) != 0) {
+  if (epd.init(lut_full_update) != 0) {
     Serial.print("e-Paper init failed");
     return;
   }
@@ -61,10 +61,10 @@ void setup() {
    *  i.e. the next action of SetFrameMemory will set the other memory area
    *  therefore you have to clear the frame memory twice.
    */
-  epd.ClearFrameMemory(0xFF);   // bit set = white, bit reset = black
-  epd.DisplayFrame();
-  epd.ClearFrameMemory(0xFF);   // bit set = white, bit reset = black
-  epd.DisplayFrame();
+  epd.clearFrameMemory(0xFF);   // bit set = white, bit reset = black
+  epd.displayFrame();
+  epd.clearFrameMemory(0xFF);   // bit set = white, bit reset = black
+  epd.displayFrame();
 
   paint.setRotate(ROTATE_0);
   paint.setWidth(200);
@@ -73,11 +73,11 @@ void setup() {
   /* For simplicity, the arguments are explicit numerical coordinates */
   paint.clear(COLORED);
   paint.drawStringAt(30, 4, "Hello world!", &Font16, UNCOLORED);
-  epd.SetFrameMemory(paint.getImage(), 0, 10, paint.getWidth(), paint.getHeight());
+  epd.setFrameMemory(paint.getImage(), 0, 10, paint.getWidth(), paint.getHeight());
 
   paint.clear(UNCOLORED);
   paint.drawStringAt(30, 4, "e-Paper Demo", &Font16, COLORED);
-  epd.SetFrameMemory(paint.getImage(), 0, 30, paint.getWidth(), paint.getHeight());
+  epd.setFrameMemory(paint.getImage(), 0, 30, paint.getWidth(), paint.getHeight());
 
   paint.setWidth(64);
   paint.setHeight(64);
@@ -86,24 +86,24 @@ void setup() {
   paint.drawRectangle(0, 0, 40, 50, COLORED);
   paint.drawLine(0, 0, 40, 50, COLORED);
   paint.drawLine(40, 0, 0, 50, COLORED);
-  epd.SetFrameMemory(paint.getImage(), 16, 60, paint.getWidth(), paint.getHeight());
+  epd.setFrameMemory(paint.getImage(), 16, 60, paint.getWidth(), paint.getHeight());
 
   paint.clear(UNCOLORED);
   paint.drawCircle(32, 32, 30, COLORED);
-  epd.SetFrameMemory(paint.getImage(), 120, 60, paint.getWidth(), paint.getHeight());
+  epd.setFrameMemory(paint.getImage(), 120, 60, paint.getWidth(), paint.getHeight());
 
   paint.clear(UNCOLORED);
   paint.drawFilledRectangle(0, 0, 40, 50, COLORED);
-  epd.SetFrameMemory(paint.getImage(), 16, 130, paint.getWidth(), paint.getHeight());
+  epd.setFrameMemory(paint.getImage(), 16, 130, paint.getWidth(), paint.getHeight());
 
   paint.clear(UNCOLORED);
   paint.drawFilledCircle(32, 32, 30, COLORED);
-  epd.SetFrameMemory(paint.getImage(), 120, 130, paint.getWidth(), paint.getHeight());
-  epd.DisplayFrame();
+  epd.setFrameMemory(paint.getImage(), 120, 130, paint.getWidth(), paint.getHeight());
+  epd.displayFrame();
 
   delay(2000);
 
-  if (epd.Init(lut_partial_update) != 0) {
+  if (epd.init(lut_partial_update) != 0) {
     Serial.print("e-Paper init failed");
     return;
   }
@@ -114,10 +114,10 @@ void setup() {
    *  i.e. the next action of SetFrameMemory will set the other memory area
    *  therefore you have to set the frame memory and refresh the display twice.
    */
-  epd.SetFrameMemory(IMAGE_DATA);
-  epd.DisplayFrame();
-  epd.SetFrameMemory(IMAGE_DATA);
-  epd.DisplayFrame();
+  epd.setFrameMemory(IMAGE_DATA);
+  epd.displayFrame();
+  epd.setFrameMemory(IMAGE_DATA);
+  epd.displayFrame();
 
   time_start_ms = millis();
 }
@@ -145,6 +145,6 @@ void updateTime(unsigned long seconds) {
 
   paint.clear(UNCOLORED);
   paint.drawStringAt(0, 4, time_string, &Font24, COLORED);
-  epd.SetFrameMemory(paint.getImage(), 80, 72, paint.getWidth(), paint.getHeight());
-  epd.DisplayFrame();
+  epd.setFrameMemory(paint.getImage(), 80, 72, paint.getWidth(), paint.getHeight());
+  epd.displayFrame();
 }

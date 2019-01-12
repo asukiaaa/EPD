@@ -34,12 +34,12 @@ EPD1in54C epd; // default reset: 8, dc: 9, cs: 10, busy: 7
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-  if (epd.Init() != 0) {
+  if (epd.init() != 0) {
     Serial.print("e-Paper init failed");
     return;
   }
-  epd.DisplayFrame(IMAGE_BLACK, IMAGE_RED);
-  epd.Sleep();
+  epd.displayFrame(IMAGE_BLACK, IMAGE_RED);
+  epd.sleep();
 }
 
 void loop() {

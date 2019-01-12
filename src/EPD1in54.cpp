@@ -36,31 +36,31 @@ EPD1in54::EPD1in54(unsigned int reset, unsigned int dc, unsigned int cs, unsigne
   height = EPD_HEIGHT;
 };
 
-int EPD1in54::Init(const unsigned char* lut) {
+int EPD1in54::init(const unsigned char* lut) {
   /* this calls the peripheral hardware interface, see epdif */
-  if (IfInit() != 0) {
+  if (ifInit() != 0) {
     return -1;
   }
   /* EPD hardware init start */
   this->lut = lut;
-  Reset();
-  SendCommand(DRIVER_OUTPUT_CONTROL);
-  SendData((EPD_HEIGHT - 1) & 0xFF);
-  SendData(((EPD_HEIGHT - 1) >> 8) & 0xFF);
-  SendData(0x00);                     // GD = 0; SM = 0; TB = 0;
-  SendCommand(BOOSTER_SOFT_START_CONTROL);
-  SendData(0xD7);
-  SendData(0xD6);
-  SendData(0x9D);
-  SendCommand(WRITE_VCOM_REGISTER);
-  SendData(0xA8);                     // VCOM 7C
-  SendCommand(SET_DUMMY_LINE_PERIOD);
-  SendData(0x1A);                     // 4 dummy lines per gate
-  SendCommand(SET_GATE_TIME);
-  SendData(0x08);                     // 2us per line
-  SendCommand(DATA_ENTRY_MODE_SETTING);
-  SendData(0x03);                     // X increment; Y increment
-  SetLut(this->lut);
+  reset();
+  sendCommand(DRIVER_OUTPUT_CONTROL);
+  sendData((EPD_HEIGHT - 1) & 0xFF);
+  sendData(((EPD_HEIGHT - 1) >> 8) & 0xFF);
+  sendData(0x00);                     // GD = 0; SM = 0; TB = 0;
+  sendCommand(BOOSTER_SOFT_START_CONTROL);
+  sendData(0xD7);
+  sendData(0xD6);
+  sendData(0x9D);
+  sendCommand(WRITE_VCOM_REGISTER);
+  sendData(0xA8);                     // VCOM 7C
+  sendCommand(SET_DUMMY_LINE_PERIOD);
+  sendData(0x1A);                     // 4 dummy lines per gate
+  sendCommand(SET_GATE_TIME);
+  sendData(0x08);                     // 2us per line
+  sendCommand(DATA_ENTRY_MODE_SETTING);
+  sendData(0x03);                     // X increment; Y increment
+  setLut(this->lut);
   /* EPD hardware init end */
   return 0;
 }
@@ -68,49 +68,49 @@ int EPD1in54::Init(const unsigned char* lut) {
 /**
  *  @brief: basic function for sending commands
  */
-void EPD1in54::SendCommand(unsigned char command) {
-  DigitalWrite(dc_pin, LOW);
-  SpiTransfer(command);
+void EPD1in54::sendCommand(unsigned char command) {
+  digitalWrite(dc_pin, LOW);
+  spiTransfer(command);
 }
 
 /**
  *  @brief: basic function for sending data
  */
-void EPD1in54::SendData(unsigned char data) {
-  DigitalWrite(dc_pin, HIGH);
-  SpiTransfer(data);
+void EPD1in54::sendData(unsigned char data) {
+  digitalWrite(dc_pin, HIGH);
+  spiTransfer(data);
 }
 
 /**
  *  @brief: Wait until the busy_pin goes LOW
  */
-void EPD1in54::WaitUntilIdle(void) {
-  while(DigitalRead(busy_pin) == HIGH) {      //LOW: idle, HIGH: busy
-    DelayMs(100);
+void EPD1in54::waitUntilIdle(void) {
+  while(digitalRead(busy_pin) == HIGH) {      //LOW: idle, HIGH: busy
+    delayMs(100);
   }
 }
 
 /**
  *  @brief: module reset.
  *          often used to awaken the module in deep sleep,
- *          see EPD1in54::Sleep();
+ *          see EPD1in54::sleep();
  */
-void EPD1in54::Reset(void) {
-  DigitalWrite(reset_pin, LOW);                //module reset
-  DelayMs(200);
-  DigitalWrite(reset_pin, HIGH);
-  DelayMs(200);
+void EPD1in54::reset(void) {
+  digitalWrite(reset_pin, LOW);                //module reset
+  delayMs(200);
+  digitalWrite(reset_pin, HIGH);
+  delayMs(200);
 }
 
 /**
  *  @brief: set the look-up table register
  */
-void EPD1in54::SetLut(const unsigned char* lut) {
+void EPD1in54::setLut(const unsigned char* lut) {
   this->lut = lut;
-  SendCommand(WRITE_LUT_REGISTER);
+  sendCommand(WRITE_LUT_REGISTER);
   /* the length of look-up table is 30 bytes */
   for (int i = 0; i < 30; i++) {
-    SendData(this->lut[i]);
+    sendData(this->lut[i]);
   }
 }
 
@@ -118,7 +118,7 @@ void EPD1in54::SetLut(const unsigned char* lut) {
  *  @brief: put an image buffer to the frame memory.
  *          this won't update the display.
  */
-void EPD1in54::SetFrameMemory(
+void EPD1in54::setFrameMemory(
                               const unsigned char* image_buffer,
                               int x,
                               int y,
@@ -148,13 +148,13 @@ void EPD1in54::SetFrameMemory(
   } else {
     y_end = y + image_height - 1;
   }
-  SetMemoryArea(x, y, x_end, y_end);
-  SetMemoryPointer(x, y);
-  SendCommand(WRITE_RAM);
+  setMemoryArea(x, y, x_end, y_end);
+  setMemoryPointer(x, y);
+  sendCommand(WRITE_RAM);
   /* send the image data */
   for (int j = 0; j < y_end - y + 1; j++) {
     for (int i = 0; i < (x_end - x + 1) / 8; i++) {
-      SendData(image_buffer[i + j * (image_width / 8)]);
+      sendData(image_buffer[i + j * (image_width / 8)]);
     }
   }
 }
@@ -164,25 +164,25 @@ void EPD1in54::SetFrameMemory(
  *          this won't update the display.
  *
  *          Question: When do you use this function instead of
- *          void SetFrameMemory(
+ *          void setFrameMemory(
  *              const unsigned char* image_buffer,
  *              int x,
  *              int y,
  *              int image_width,
  *              int image_height
  *          );
- *          Answer: SetFrameMemory with parameters only reads image data
+ *          Answer: setFrameMemory with parameters only reads image data
  *          from the RAM but not from the flash in AVR chips (for AVR chips,
  *          you have to use the function pgm_read_byte to read buffers
  *          from the flash).
  */
-void EPD1in54::SetFrameMemory(const unsigned char* image_buffer) {
-  SetMemoryArea(0, 0, this->width - 1, this->height - 1);
-  SetMemoryPointer(0, 0);
-  SendCommand(WRITE_RAM);
+void EPD1in54::setFrameMemory(const unsigned char* image_buffer) {
+  setMemoryArea(0, 0, this->width - 1, this->height - 1);
+  setMemoryPointer(0, 0);
+  sendCommand(WRITE_RAM);
   /* send the image data */
   for (int i = 0; i < this->width / 8 * this->height; i++) {
-    SendData(pgm_read_byte(&image_buffer[i]));
+    sendData(pgm_read_byte(&image_buffer[i]));
   }
 }
 
@@ -190,13 +190,13 @@ void EPD1in54::SetFrameMemory(const unsigned char* image_buffer) {
  *  @brief: clear the frame memory with the specified color.
  *          this won't update the display.
  */
-void EPD1in54::ClearFrameMemory(unsigned char color) {
-  SetMemoryArea(0, 0, this->width - 1, this->height - 1);
-  SetMemoryPointer(0, 0);
-  SendCommand(WRITE_RAM);
+void EPD1in54::clearFrameMemory(unsigned char color) {
+  setMemoryArea(0, 0, this->width - 1, this->height - 1);
+  setMemoryPointer(0, 0);
+  sendCommand(WRITE_RAM);
   /* send the color data */
   for (int i = 0; i < this->width / 8 * this->height; i++) {
-    SendData(color);
+    sendData(color);
   }
 }
 
@@ -204,54 +204,54 @@ void EPD1in54::ClearFrameMemory(unsigned char color) {
  *  @brief: update the display
  *          there are 2 memory areas embedded in the e-paper display
  *          but once this function is called,
- *          the the next action of SetFrameMemory or ClearFrame will
+ *          the the next action of setFrameMemory or clearFrame will
  *          set the other memory area.
  */
-void EPD1in54::DisplayFrame(void) {
-  SendCommand(DISPLAY_UPDATE_CONTROL_2);
-  SendData(0xC4);
-  SendCommand(MASTER_ACTIVATION);
-  SendCommand(TERMINATE_FRAME_READ_WRITE);
-  WaitUntilIdle();
+void EPD1in54::displayFrame(void) {
+  sendCommand(DISPLAY_UPDATE_CONTROL_2);
+  sendData(0xC4);
+  sendCommand(MASTER_ACTIVATION);
+  sendCommand(TERMINATE_FRAME_READ_WRITE);
+  waitUntilIdle();
 }
 
 /**
  *  @brief: private function to specify the memory area for data R/W
  */
-void EPD1in54::SetMemoryArea(int x_start, int y_start, int x_end, int y_end) {
-  SendCommand(SET_RAM_X_ADDRESS_START_END_POSITION);
+void EPD1in54::setMemoryArea(int x_start, int y_start, int x_end, int y_end) {
+  sendCommand(SET_RAM_X_ADDRESS_START_END_POSITION);
   /* x point must be the multiple of 8 or the last 3 bits will be ignored */
-  SendData((x_start >> 3) & 0xFF);
-  SendData((x_end >> 3) & 0xFF);
-  SendCommand(SET_RAM_Y_ADDRESS_START_END_POSITION);
-  SendData(y_start & 0xFF);
-  SendData((y_start >> 8) & 0xFF);
-  SendData(y_end & 0xFF);
-  SendData((y_end >> 8) & 0xFF);
+  sendData((x_start >> 3) & 0xFF);
+  sendData((x_end >> 3) & 0xFF);
+  sendCommand(SET_RAM_Y_ADDRESS_START_END_POSITION);
+  sendData(y_start & 0xFF);
+  sendData((y_start >> 8) & 0xFF);
+  sendData(y_end & 0xFF);
+  sendData((y_end >> 8) & 0xFF);
 }
 
 /**
  *  @brief: private function to specify the start point for data R/W
  */
-void EPD1in54::SetMemoryPointer(int x, int y) {
-  SendCommand(SET_RAM_X_ADDRESS_COUNTER);
+void EPD1in54::setMemoryPointer(int x, int y) {
+  sendCommand(SET_RAM_X_ADDRESS_COUNTER);
   /* x point must be the multiple of 8 or the last 3 bits will be ignored */
-  SendData((x >> 3) & 0xFF);
-  SendCommand(SET_RAM_Y_ADDRESS_COUNTER);
-  SendData(y & 0xFF);
-  SendData((y >> 8) & 0xFF);
-  WaitUntilIdle();
+  sendData((x >> 3) & 0xFF);
+  sendCommand(SET_RAM_Y_ADDRESS_COUNTER);
+  sendData(y & 0xFF);
+  sendData((y >> 8) & 0xFF);
+  waitUntilIdle();
 }
 
 /**
  *  @brief: After this command is transmitted, the chip would enter the
  *          deep-sleep mode to save power.
  *          The deep sleep mode would return to standby by hardware reset.
- *          You can use EPD1in54::Init() to awaken
+ *          You can use EPD1in54::init() to awaken
  */
-void EPD1in54::Sleep() {
-  SendCommand(DEEP_SLEEP_MODE);
-  WaitUntilIdle();
+void EPD1in54::sleep() {
+  sendCommand(DEEP_SLEEP_MODE);
+  waitUntilIdle();
 }
 
 const unsigned char lut_full_update[] =

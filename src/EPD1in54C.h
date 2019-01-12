@@ -77,15 +77,15 @@ class EPD1in54C : EPDIF {
 
   EPD1in54C(unsigned int reset = RESET_PIN, unsigned int dc = DC_PIN, unsigned int cs = CS_PIN, unsigned int busy = BUSY_PIN);
   ~EPD1in54C();
-  int  Init(void);
-  void SendCommand(unsigned char command);
-  void SendData(unsigned char data);
-  void WaitUntilIdle(void);
-  void Reset(void);
-  void SetLutBw(void);
-  void SetLutRed(void);
-  void DisplayFrame(const unsigned char* frame_buffer_black, const unsigned char* frame_buffer_red);
-  void Sleep(void);
+  int  init(void);
+  void sendCommand(unsigned char command);
+  void sendData(unsigned char data);
+  void waitUntilIdle(void);
+  void reset(void);
+  void setLutBw(void);
+  void setLutRed(void);
+  void displayFrame(const unsigned char* frame_buffer_black, const unsigned char* frame_buffer_red);
+  void sleep(void);
 };
 
 #endif /* EPD1IN54C_H */

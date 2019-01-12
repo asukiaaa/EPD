@@ -38,25 +38,25 @@ EPDIF::EPDIF(unsigned int reset, unsigned int dc, unsigned int cs, unsigned int 
 EPDIF::~EPDIF() {
 };
 
-void EPDIF::DigitalWrite(int pin, int value) {
+void EPDIF::digitalWrite(int pin, int value) {
   digitalWrite(pin, value);
 }
 
-int EPDIF::DigitalRead(int pin) {
+int EPDIF::digitalRead(int pin) {
   return digitalRead(pin);
 }
 
-void EPDIF::DelayMs(unsigned int delaytime) {
+void EPDIF::delayMs(unsigned int delaytime) {
   delay(delaytime);
 }
 
-void EPDIF::SpiTransfer(unsigned char data) {
+void EPDIF::spiTransfer(unsigned char data) {
   digitalWrite(cs_pin, LOW);
   SPI.transfer(data);
   digitalWrite(cs_pin, HIGH);
 }
 
-int EPDIF::IfInit() {
+int EPDIF::ifInit() {
   pinMode(cs_pin, OUTPUT);
   pinMode(reset_pin, OUTPUT);
   pinMode(dc_pin, OUTPUT);

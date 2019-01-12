@@ -35,11 +35,11 @@ class EPDIF {
   EPDIF(unsigned int reset, unsigned int dc, unsigned int cs, unsigned int busy);
   ~EPDIF(void);
 
-  int  IfInit();
-  static void DigitalWrite(int pin, int value);
-  static int  DigitalRead(int pin);
-  static void DelayMs(unsigned int delaytime);
-  void SpiTransfer(unsigned char data);
+  int  ifInit();
+  static void digitalWrite(int pin, int value);
+  static int  digitalRead(int pin);
+  static void delayMs(unsigned int delaytime);
+  void spiTransfer(unsigned char data);
 
  protected:
   unsigned int reset_pin;
