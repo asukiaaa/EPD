@@ -66,39 +66,39 @@ void setup() {
   epd.ClearFrameMemory(0xFF);   // bit set = white, bit reset = black
   epd.DisplayFrame();
 
-  paint.SetRotate(ROTATE_0);
-  paint.SetWidth(200);
-  paint.SetHeight(24);
+  paint.setRotate(ROTATE_0);
+  paint.setWidth(200);
+  paint.setHeight(24);
 
   /* For simplicity, the arguments are explicit numerical coordinates */
-  paint.Clear(COLORED);
-  paint.DrawStringAt(30, 4, "Hello world!", &Font16, UNCOLORED);
-  epd.SetFrameMemory(paint.GetImage(), 0, 10, paint.GetWidth(), paint.GetHeight());
+  paint.clear(COLORED);
+  paint.drawStringAt(30, 4, "Hello world!", &Font16, UNCOLORED);
+  epd.SetFrameMemory(paint.getImage(), 0, 10, paint.getWidth(), paint.getHeight());
 
-  paint.Clear(UNCOLORED);
-  paint.DrawStringAt(30, 4, "e-Paper Demo", &Font16, COLORED);
-  epd.SetFrameMemory(paint.GetImage(), 0, 30, paint.GetWidth(), paint.GetHeight());
+  paint.clear(UNCOLORED);
+  paint.drawStringAt(30, 4, "e-Paper Demo", &Font16, COLORED);
+  epd.SetFrameMemory(paint.getImage(), 0, 30, paint.getWidth(), paint.getHeight());
 
-  paint.SetWidth(64);
-  paint.SetHeight(64);
+  paint.setWidth(64);
+  paint.setHeight(64);
 
-  paint.Clear(UNCOLORED);
-  paint.DrawRectangle(0, 0, 40, 50, COLORED);
-  paint.DrawLine(0, 0, 40, 50, COLORED);
-  paint.DrawLine(40, 0, 0, 50, COLORED);
-  epd.SetFrameMemory(paint.GetImage(), 16, 60, paint.GetWidth(), paint.GetHeight());
+  paint.clear(UNCOLORED);
+  paint.drawRectangle(0, 0, 40, 50, COLORED);
+  paint.drawLine(0, 0, 40, 50, COLORED);
+  paint.drawLine(40, 0, 0, 50, COLORED);
+  epd.SetFrameMemory(paint.getImage(), 16, 60, paint.getWidth(), paint.getHeight());
 
-  paint.Clear(UNCOLORED);
-  paint.DrawCircle(32, 32, 30, COLORED);
-  epd.SetFrameMemory(paint.GetImage(), 120, 60, paint.GetWidth(), paint.GetHeight());
+  paint.clear(UNCOLORED);
+  paint.drawCircle(32, 32, 30, COLORED);
+  epd.SetFrameMemory(paint.getImage(), 120, 60, paint.getWidth(), paint.getHeight());
 
-  paint.Clear(UNCOLORED);
-  paint.DrawFilledRectangle(0, 0, 40, 50, COLORED);
-  epd.SetFrameMemory(paint.GetImage(), 16, 130, paint.GetWidth(), paint.GetHeight());
+  paint.clear(UNCOLORED);
+  paint.drawFilledRectangle(0, 0, 40, 50, COLORED);
+  epd.SetFrameMemory(paint.getImage(), 16, 130, paint.getWidth(), paint.getHeight());
 
-  paint.Clear(UNCOLORED);
-  paint.DrawFilledCircle(32, 32, 30, COLORED);
-  epd.SetFrameMemory(paint.GetImage(), 120, 130, paint.GetWidth(), paint.GetHeight());
+  paint.clear(UNCOLORED);
+  paint.drawFilledCircle(32, 32, 30, COLORED);
+  epd.SetFrameMemory(paint.getImage(), 120, 130, paint.getWidth(), paint.getHeight());
   epd.DisplayFrame();
 
   delay(2000);
@@ -139,12 +139,12 @@ void updateTime(unsigned long seconds) {
   time_string[3] = seconds % 60 / 10 + '0';
   time_string[4] = seconds % 60 % 10 + '0';
 
-  paint.SetWidth(32);
-  paint.SetHeight(96);
-  paint.SetRotate(ROTATE_270);
+  paint.setWidth(32);
+  paint.setHeight(96);
+  paint.setRotate(ROTATE_270);
 
-  paint.Clear(UNCOLORED);
-  paint.DrawStringAt(0, 4, time_string, &Font24, COLORED);
-  epd.SetFrameMemory(paint.GetImage(), 80, 72, paint.GetWidth(), paint.GetHeight());
+  paint.clear(UNCOLORED);
+  paint.drawStringAt(0, 4, time_string, &Font24, COLORED);
+  epd.SetFrameMemory(paint.getImage(), 80, 72, paint.getWidth(), paint.getHeight());
   epd.DisplayFrame();
 }

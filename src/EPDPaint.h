@@ -42,25 +42,25 @@ class EPDPaint {
  public:
   EPDPaint(unsigned char* image, int width, int height);
   ~EPDPaint();
-  void Clear(int colored);
-  int  GetWidth(void);
-  void SetWidth(int width);
-  int  GetHeight(void);
-  void SetHeight(int height);
-  int  GetRotate(void);
-  void SetRotate(int rotate);
-  unsigned char* GetImage(void);
-  void DrawAbsolutePixel(int x, int y, int colored);
-  void DrawPixel(int x, int y, int colored);
-  void DrawCharAt(int x, int y, char ascii_char, sFONT* font, int colored);
-  void DrawStringAt(int x, int y, const char* text, sFONT* font, int colored);
-  void DrawLine(int x0, int y0, int x1, int y1, int colored);
-  void DrawHorizontalLine(int x, int y, int width, int colored);
-  void DrawVerticalLine(int x, int y, int height, int colored);
-  void DrawRectangle(int x0, int y0, int x1, int y1, int colored);
-  void DrawFilledRectangle(int x0, int y0, int x1, int y1, int colored);
-  void DrawCircle(int x, int y, int radius, int colored);
-  void DrawFilledCircle(int x, int y, int radius, int colored);
+  void clear(int colored);
+  int  getWidth(void);
+  void setWidth(int width);
+  int  getHeight(void);
+  void setHeight(int height);
+  int  getRotate(void);
+  void setRotate(int rotate);
+  unsigned char* getImage(void);
+  void drawAbsolutePixel(int x, int y, int colored);
+  void drawPixel(int x, int y, int colored);
+  void drawCharAt(int x, int y, char ascii_char, sFONT* font, int colored);
+  void drawStringAt(int x, int y, const char* text, sFONT* font, int colored);
+  void drawLine(int x0, int y0, int x1, int y1, int colored);
+  void drawHorizontalLine(int x, int y, int width, int colored);
+  void drawVerticalLine(int x, int y, int height, int colored);
+  void drawRectangle(int x0, int y0, int x1, int y1, int colored);
+  void drawFilledRectangle(int x0, int y0, int x1, int y1, int colored);
+  void drawCircle(int x, int y, int radius, int colored);
+  void drawFilledCircle(int x, int y, int radius, int colored);
 
  private:
   unsigned char* image;
