@@ -27,49 +27,49 @@
 #include <stdlib.h>
 #include "EPD1in54B.h"
 
-const unsigned char lut_vcom0[] =
+const unsigned char lutVcom0[] =
   {
     0x0E, 0x14, 0x01, 0x0A, 0x06, 0x04, 0x0A, 0x0A,
     0x0F, 0x03, 0x03, 0x0C, 0x06, 0x0A, 0x00
   };
 
-const unsigned char lut_w[] =
+const unsigned char lutW[] =
   {
     0x0E, 0x14, 0x01, 0x0A, 0x46, 0x04, 0x8A, 0x4A,
     0x0F, 0x83, 0x43, 0x0C, 0x86, 0x0A, 0x04
   };
 
-const unsigned char lut_b[] =
+const unsigned char lutB[] =
   {
     0x0E, 0x14, 0x01, 0x8A, 0x06, 0x04, 0x8A, 0x4A,
     0x0F, 0x83, 0x43, 0x0C, 0x06, 0x4A, 0x04
   };
 
-const unsigned char lut_g1[] =
+const unsigned char lutG1[] =
   {
     0x8E, 0x94, 0x01, 0x8A, 0x06, 0x04, 0x8A, 0x4A,
     0x0F, 0x83, 0x43, 0x0C, 0x06, 0x0A, 0x04
   };
 
-const unsigned char lut_g2[] =
+const unsigned char lutG2[] =
   {
     0x8E, 0x94, 0x01, 0x8A, 0x06, 0x04, 0x8A, 0x4A,
     0x0F, 0x83, 0x43, 0x0C, 0x06, 0x0A, 0x04
   };
 
-const unsigned char lut_vcom1[] =
+const unsigned char lutVcom1[] =
   {
     0x03, 0x1D, 0x01, 0x01, 0x08, 0x23, 0x37, 0x37,
     0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
   };
 
-const unsigned char lut_red0[] =
+const unsigned char lutRed0[] =
   {
     0x83, 0x5D, 0x01, 0x81, 0x48, 0x23, 0x77, 0x77,
     0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
   };
 
-const unsigned char lut_red1[] =
+const unsigned char lutRed1[] =
   {
     0x03, 0x1D, 0x01, 0x01, 0x08, 0x23, 0x37, 0x37,
     0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
@@ -168,23 +168,23 @@ void EPD1in54B::setLutBw(void) {
   unsigned int count;
   sendCommand(0x20);         //g vcom
   for(count = 0; count < 15; count++) {
-    sendData(lut_vcom0[count]);
+    sendData(lutVcom0[count]);
   }
   sendCommand(0x21);        //g ww --
   for(count = 0; count < 15; count++) {
-    sendData(lut_w[count]);
+    sendData(lutW[count]);
   }
   sendCommand(0x22);         //g bw r
   for(count = 0; count < 15; count++) {
-    sendData(lut_b[count]);
+    sendData(lutB[count]);
   }
   sendCommand(0x23);         //g wb w
   for(count = 0; count < 15; count++) {
-    sendData(lut_g1[count]);
+    sendData(lutG1[count]);
   }
   sendCommand(0x24);         //g bb b
   for(count = 0; count < 15; count++) {
-    sendData(lut_g2[count]);
+    sendData(lutG2[count]);
   }
 }
 
@@ -192,15 +192,15 @@ void EPD1in54B::setLutRed(void) {
   unsigned int count;
   sendCommand(0x25);
   for(count = 0; count < 15; count++) {
-    sendData(lut_vcom1[count]);
+    sendData(lutVcom1[count]);
   }
   sendCommand(0x26);
   for(count = 0; count < 15; count++) {
-    sendData(lut_red0[count]);
+    sendData(lutRed0[count]);
   }
   sendCommand(0x27);
   for(count = 0; count < 15; count++) {
-    sendData(lut_red1[count]);
+    sendData(lutRed1[count]);
   }
 }
 

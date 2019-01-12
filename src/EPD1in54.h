@@ -62,8 +62,8 @@
 #define SET_RAM_Y_ADDRESS_COUNTER                   0x4F
 #define TERMINATE_FRAME_READ_WRITE                  0xFF
 
-extern const unsigned char lut_full_update[];
-extern const unsigned char lut_partial_update[];
+extern const unsigned char lutFullUpdate[];
+extern const unsigned char lutPartialUpdate[];
 
 class EPD1in54 : EPDIF {
  public:
