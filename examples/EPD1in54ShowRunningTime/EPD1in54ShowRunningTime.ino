@@ -42,9 +42,9 @@ unsigned char image[1024];
 EPDPaint paint(image, 0, 0);    // width should be the multiple of 8
 EPD1in54 epd; // default reset: 8, dc: 9, cs: 10, busy: 7
 // EPD1in54 epd(33, 25, 26, 27); // reset, dc, cs, busy
-unsigned long time_start_ms;
-unsigned long time_now_s;
-unsigned long time_showed_s = 0;
+unsigned long timeStartMs;
+unsigned long timeNowS;
+unsigned long timeShowedS = 1000;
 
 void setup() {
   // put your setup code here, to run once:
@@ -119,15 +119,15 @@ void setup() {
   epd.setFrameMemory(IMAGE_DATA);
   epd.displayFrame();
 
-  time_start_ms = millis();
+  timeStartMs = millis();
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  time_now_s = (millis() - time_start_ms) / 1000;
-  if (time_now_s != time_showed_s) {
-    time_showed_s = time_now_s;
-    updateTime(time_showed_s);
+  timeNowS = (millis() - timeStartMs) / 1000;
+  if (timeNowS != timeShowedS) {
+    timeShowedS = timeNowS;
+    updateTime(timeShowedS);
   }
   delay(20);
 }
