@@ -31,21 +31,21 @@
 #include <Arduino.h>
 
 class EPDIF {
-public:
-    EPDIF(unsigned int reset, unsigned int dc, unsigned int cs, unsigned int busy);
-    ~EPDIF(void);
+ public:
+  EPDIF(unsigned int reset, unsigned int dc, unsigned int cs, unsigned int busy);
+  ~EPDIF(void);
 
-    int  IfInit();
-    static void DigitalWrite(int pin, int value);
-    static int  DigitalRead(int pin);
-    static void DelayMs(unsigned int delaytime);
-    void SpiTransfer(unsigned char data);
+  int  IfInit();
+  static void DigitalWrite(int pin, int value);
+  static int  DigitalRead(int pin);
+  static void DelayMs(unsigned int delaytime);
+  void SpiTransfer(unsigned char data);
 
-protected:
-    unsigned int reset_pin;
-    unsigned int dc_pin;
-    unsigned int cs_pin;
-    unsigned int busy_pin;
+ protected:
+  unsigned int reset_pin;
+  unsigned int dc_pin;
+  unsigned int cs_pin;
+  unsigned int busy_pin;
 };
 
 #endif

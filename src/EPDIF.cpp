@@ -29,40 +29,39 @@
 #include <SPI.h>
 
 EPDIF::EPDIF(unsigned int reset, unsigned int dc, unsigned int cs, unsigned int busy) {
-    reset_pin = reset;
-    dc_pin = dc;
-    cs_pin = cs;
-    busy_pin = busy;
+  reset_pin = reset;
+  dc_pin = dc;
+  cs_pin = cs;
+  busy_pin = busy;
 };
 
 EPDIF::~EPDIF() {
 };
 
 void EPDIF::DigitalWrite(int pin, int value) {
-    digitalWrite(pin, value);
+  digitalWrite(pin, value);
 }
 
 int EPDIF::DigitalRead(int pin) {
-    return digitalRead(pin);
+  return digitalRead(pin);
 }
 
 void EPDIF::DelayMs(unsigned int delaytime) {
-    delay(delaytime);
+  delay(delaytime);
 }
 
 void EPDIF::SpiTransfer(unsigned char data) {
-    digitalWrite(cs_pin, LOW);
-    SPI.transfer(data);
-    digitalWrite(cs_pin, HIGH);
+  digitalWrite(cs_pin, LOW);
+  SPI.transfer(data);
+  digitalWrite(cs_pin, HIGH);
 }
 
 int EPDIF::IfInit() {
-    pinMode(cs_pin, OUTPUT);
-    pinMode(reset_pin, OUTPUT);
-    pinMode(dc_pin, OUTPUT);
-    pinMode(busy_pin, INPUT);
-    SPI.beginTransaction(SPISettings(2000000, MSBFIRST, SPI_MODE0));
-    SPI.begin();
-    return 0;
+  pinMode(cs_pin, OUTPUT);
+  pinMode(reset_pin, OUTPUT);
+  pinMode(dc_pin, OUTPUT);
+  pinMode(busy_pin, INPUT);
+  SPI.beginTransaction(SPISettings(2000000, MSBFIRST, SPI_MODE0));
+  SPI.begin();
+  return 0;
 }
-
