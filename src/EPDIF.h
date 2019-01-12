@@ -36,8 +36,6 @@ class EPDIF {
   ~EPDIF(void);
 
   int  ifInit();
-  static void digitalWrite(int pin, int value);
-  static int  digitalRead(int pin);
   static void delayMs(unsigned int delaytime);
   void spiTransfer(unsigned char data);
 

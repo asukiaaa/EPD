@@ -38,14 +38,6 @@ EPDIF::EPDIF(unsigned int reset, unsigned int dc, unsigned int cs, unsigned int 
 EPDIF::~EPDIF() {
 };
 
-void EPDIF::digitalWrite(int pin, int value) {
-  digitalWrite(pin, value);
-}
-
-int EPDIF::digitalRead(int pin) {
-  return digitalRead(pin);
-}
-
 void EPDIF::delayMs(unsigned int delaytime) {
   delay(delaytime);
 }
