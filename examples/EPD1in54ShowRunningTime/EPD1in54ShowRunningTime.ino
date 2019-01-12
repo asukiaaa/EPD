@@ -1,5 +1,5 @@
 /**
- *  @filename   :   EPD1in54Demo.ino
+ *  @filename   :   EPD1in54ShowRunningTime.ino
  *  @brief      :   1.54inch e-paper display demo
  *  @author     :   Yehui from Waveshare
  *
