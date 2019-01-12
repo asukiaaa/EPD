@@ -69,7 +69,7 @@ int EPD1in54::init(const unsigned char* lut) {
  *  @brief: basic function for sending commands
  */
 void EPD1in54::sendCommand(unsigned char command) {
-  digitalWrite(dc_pin, LOW);
+  digitalWrite(dcPin, LOW);
   spiTransfer(command);
 }
 
@@ -77,15 +77,15 @@ void EPD1in54::sendCommand(unsigned char command) {
  *  @brief: basic function for sending data
  */
 void EPD1in54::sendData(unsigned char data) {
-  digitalWrite(dc_pin, HIGH);
+  digitalWrite(dcPin, HIGH);
   spiTransfer(data);
 }
 
 /**
- *  @brief: Wait until the busy_pin goes LOW
+ *  @brief: Wait until the busyPin goes LOW
  */
 void EPD1in54::waitUntilIdle(void) {
-  while(digitalRead(busy_pin) == HIGH) {      //LOW: idle, HIGH: busy
+  while(digitalRead(busyPin) == HIGH) {      //LOW: idle, HIGH: busy
     delayMs(100);
   }
 }
@@ -96,9 +96,9 @@ void EPD1in54::waitUntilIdle(void) {
  *          see EPD1in54::sleep();
  */
 void EPD1in54::reset(void) {
-  digitalWrite(reset_pin, LOW);                //module reset
+  digitalWrite(resetPin, LOW);                //module reset
   delayMs(200);
-  digitalWrite(reset_pin, HIGH);
+  digitalWrite(resetPin, HIGH);
   delayMs(200);
 }
 

@@ -40,10 +40,10 @@ class EPDIF {
   void spiTransfer(unsigned char data);
 
  protected:
-  unsigned int reset_pin;
-  unsigned int dc_pin;
-  unsigned int cs_pin;
-  unsigned int busy_pin;
+  unsigned int resetPin;
+  unsigned int dcPin;
+  unsigned int csPin;
+  unsigned int busyPin;
 };
 
 #endif

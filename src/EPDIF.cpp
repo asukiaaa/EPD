@@ -29,10 +29,10 @@
 #include <SPI.h>
 
 EPDIF::EPDIF(unsigned int reset, unsigned int dc, unsigned int cs, unsigned int busy) {
-  reset_pin = reset;
-  dc_pin = dc;
-  cs_pin = cs;
-  busy_pin = busy;
+  resetPin = reset;
+  dcPin = dc;
+  csPin = cs;
+  busyPin = busy;
 };
 
 EPDIF::~EPDIF() {
@@ -43,16 +43,16 @@ void EPDIF::delayMs(unsigned int delaytime) {
 }
 
 void EPDIF::spiTransfer(unsigned char data) {
-  digitalWrite(cs_pin, LOW);
+  digitalWrite(csPin, LOW);
   SPI.transfer(data);
-  digitalWrite(cs_pin, HIGH);
+  digitalWrite(csPin, HIGH);
 }
 
 int EPDIF::ifInit() {
-  pinMode(cs_pin, OUTPUT);
-  pinMode(reset_pin, OUTPUT);
-  pinMode(dc_pin, OUTPUT);
-  pinMode(busy_pin, INPUT);
+  pinMode(csPin, OUTPUT);
+  pinMode(resetPin, OUTPUT);
+  pinMode(dcPin, OUTPUT);
+  pinMode(busyPin, INPUT);
   SPI.beginTransaction(SPISettings(2000000, MSBFIRST, SPI_MODE0));
   SPI.begin();
   return 0;
