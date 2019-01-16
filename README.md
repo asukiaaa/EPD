@@ -41,6 +41,7 @@ See [examples](./examples).
 MIT
 
 # References
+- [ESP32で1.54インチのePaperを動かす方法](http://asukiaaa.blogspot.com/2019/01/esp32154epaper.html)
 - [電子ペーパーの実験](https://garretlab.web.fc2.com/arduino/esp32/lab/epd/index.html)
 - [1.54inch e-Paper Module](https://www.waveshare.com/wiki/1.54inch_e-Paper_Module)
 - [1.54inch e-Paper Module (B)](https://www.waveshare.com/wiki/1.54inch_e-Paper_Module_(B))
