@@ -8,7 +8,7 @@ A library to control waveshare 1.54 inch e-paper display.
 
 # Usage
 ## Connection
-Default
+### Default
 
 ```
 EPD1in54 epd; // default reset: 8, dc: 9, cs: 10, busy: 7
@@ -20,19 +20,31 @@ EPD | Controller
 --- | ---
 VCC | 3V3
 GND | GND
-SDI | MOSI(ESP32: 23)
-SCLK | SCK(ESP32: 18)
+SDI | MOSI
+SCLK | SCK
 CS | 10
 DC | 9
 Reset | 8
 Busy | 7
 
+### ESP32
 You can change pin assign for CS, DC, Reset and Busy like this.
 ```
 EPD1in54 epd(33, 25, 26, 27); // reset, dc, cs, busy
 // EPD1in54B epd(33, 25, 26, 27); // for red
 // EPD1in54C epd(33, 25, 26, 27); // for yellow
 ```
+
+EPD | Controller
+--- | ---
+VCC | 3V3
+GND | GND
+SDI | MOSI(ESP32: 23)
+SCLK | SCK(ESP32: 18)
+CS | 26
+DC | 25
+Reset | 33
+Busy | 27
 
 ## Program
 See [examples](./examples).
